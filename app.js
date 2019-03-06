@@ -42,9 +42,11 @@ $('button').on('click', function () {
                     var p = $("<p>").text("Rating: " + rating);
 
                     var image = $("<img>");
-
-                    image.attr("src", results[i].images.fixed_height_still.url);
-                    image.data()
+                    image.addClass("imgClick");
+                    image.attr("src", results[i].images.fixed_width_still.url);
+                    image.attr("data-still", results[i].images.fixed_width_still.url);
+                    image.attr("data-animate", results[i].images.fixed_width.url);
+                    image.attr("data-state", "still");
 
                     gifDiv.append(p);
                     gifDiv.append(image);
@@ -56,6 +58,17 @@ $('button').on('click', function () {
         });
 });
 
-$('.gifDiv').on('click', function () {
+$('.imgClick').on('click', function () {
+    var state = $(this).attr("data-state");
+
+    if (state === "still") {
+        $(this).attr("src", $(this).attr("data-animate"));
+        $(this).attr("data-state", "animate");
+    } else {
+        $(this).attr("src", $(this).attr("data-still"));
+        $(this).attr("data-state", "still");
+    }
+
+    console.log("Click");
 
 });

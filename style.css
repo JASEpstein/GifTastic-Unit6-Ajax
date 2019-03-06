@@ -7,6 +7,14 @@
     float: right;
 }
 
-button .gifDiv {
-    display: inline;
+.gifDiv {
+    display: inline-block;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+img {
+    margin-left: 2%;
+    margin-right: 2%;
+
 }
