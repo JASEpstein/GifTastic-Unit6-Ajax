@@ -44,6 +44,7 @@ $('button').on('click', function () {
                     var image = $("<img>");
 
                     image.attr("src", results[i].images.fixed_height_still.url);
+                    image.data()
 
                     gifDiv.append(p);
                     gifDiv.append(image);
