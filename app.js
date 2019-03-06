@@ -12,15 +12,14 @@ var topics = [
     'bb-8'
 ];
 
-$.each(topics, function (index, value) {
-    var newBtn = $('.buttonsGoHere').append(
-        $('<button>').text(value)
+function createTopicButton(value) {
+    $('.buttonsGoHere').append(
+        $('<button>').text(value).addClass('topicBtn')
     );
-});
 
-$('button').on('click', function () {
-    var searchTerm = $(this).text();
+}
 
+function populateGifs(searchTerm) {
     var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
         searchTerm + "&api_key=dc6zaTOxFJmzC&limit=10";
 
@@ -31,7 +30,6 @@ $('button').on('click', function () {
         .then(function (response) {
             $('.gifsGoHere').empty();
             var results = response.data;
-            console.log(results);
 
             for (var i = 0; i < results.length; i++) {
                 if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
@@ -56,9 +54,19 @@ $('button').on('click', function () {
             }
 
         });
+}
+
+$.each(topics, function (index, value) {
+    createTopicButton(value);
 });
 
-$('.imgClick').on('click', function () {
+$('.topicBtn').on('click', function () {
+    var searchTerm = $(this).text();
+    populateGifs(searchTerm);
+
+});
+
+$(document).on('click', '.imgClick', function () {
     var state = $(this).attr("data-state");
 
     if (state === "still") {
@@ -71,4 +79,12 @@ $('.imgClick').on('click', function () {
 
     console.log("Click");
 
+});
+
+$('.submitBtn').on('click', function (event) {
+    event.preventDefault();
+    var newTerm = $('#submitInfo').val().trim();
+    populateGifs(newTerm);
+    createTopicButton(newTerm);
+    $('#submitInfo').val('');
 });
