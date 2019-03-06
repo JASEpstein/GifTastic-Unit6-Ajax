@@ -1,0 +1,12 @@
+.gifsGoHere .submitForm {
+    width: 960px;
+    display: inline;
+}
+
+.submitForm {
+    float: right;
+}
+
+button .gifDiv {
+    display: inline;
+}
